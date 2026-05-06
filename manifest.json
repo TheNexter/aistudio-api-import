@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "AI Studio JSON Importer",
+  "version": "1.0",
+  "description": "Importe des requêtes JSON contenant du texte et des fichiers base64 directement dans Google AI Studio.",
+  "permissions": [
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://aistudio.google.com/*"],
+      "css": ["style.css"],
+      "js": ["content.js"]
+    }
+  ]
+}
