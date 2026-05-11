@@ -57,6 +57,47 @@ async function processJsonInput(jsonString) {
 
         if (!contents || !textarea) return;
 
+        const systemInstruction = data.system_instruction?.parts?.[0]?.text;
+        console.log("[AI Studio Importer] systemInstruction found in JSON:", systemInstruction);
+        if (systemInstruction) {
+            let sysToggle = document.querySelector('[data-test-id="system-instructions-toggle"], button[aria-label*="system" i]');
+            if (!sysToggle) {
+                const allEls = document.querySelectorAll('button, [role="button"], .mat-expansion-panel-header');
+                for (const el of allEls) {
+                    if (el.textContent.toLowerCase().includes('system instruction')) {
+                        sysToggle = el;
+                        break;
+                    }
+                }
+            }
+            console.log("[AI Studio Importer] sysToggle found:", sysToggle);
+            
+            let sysTextarea = document.querySelector('textarea[aria-label="System instructions"], textarea[formcontrolname="systemInstruction"]');
+            if (!sysTextarea && sysToggle) {
+                sysToggle.click();
+                console.log("[AI Studio Importer] Clicked system instruction toggle");
+                await new Promise(r => setTimeout(r, 1000));
+                sysTextarea = document.querySelector('textarea[aria-label="System instructions"], textarea[formcontrolname="systemInstruction"]');
+                console.log("[AI Studio Importer] sysTextarea after toggle click:", sysTextarea);
+            }
+            if (!sysTextarea) {
+                console.log("[AI Studio Importer] All textareas on page:", [...document.querySelectorAll('textarea')].map(t => ({ outerHTML: t.outerHTML.slice(0, 200), value: t.value })));
+            }
+            if (sysTextarea) {
+                sysTextarea.value = systemInstruction;
+                sysTextarea.dispatchEvent(new Event('input', { bubbles: true }));
+                console.log("[AI Studio Importer] System instruction set:", systemInstruction);
+                await new Promise(r => setTimeout(r, 300));
+            }
+
+            const closeBtn = document.querySelector('button[data-test-close-button]');
+            if (closeBtn) {
+                closeBtn.click();
+                console.log("[AI Studio Importer] Closed system instruction panel");
+                await new Promise(r => setTimeout(r, 500));
+            }
+        }
+
         for (let c = 0; c < contents.length; c++) {
             const parts = contents[c].parts;
             if (!parts) continue;

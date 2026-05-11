@@ -3,6 +3,17 @@
   "name": "AI Studio JSON Importer",
   "version": "1.0",
   "description": "Importe des requêtes JSON contenant du texte et des fichiers base64 directement dans Google AI Studio.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "aistudio-json-importer@TheNexter",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  "icons": {
+    "48": "48.svg"
+  },
   "permissions": [
     "activeTab"
   ],
