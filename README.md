@@ -1,6 +1,7 @@
 # AI Studio JSON Importer
 
 This Firefox extension import of JSON requests into the Google AI Studio interface. It handles both text parts and base64-encoded files by simulating native UI interactions.
+<img width="1663" height="216" alt="image" src="https://github.com/user-attachments/assets/2bae0645-7149-4a3f-9406-5c45573125fa" />
 
 ## Functionality
 
